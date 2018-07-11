@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+		 <record id="komponen_form" model="ir.ui.view">
+			<field name="name">Form Komponen</field>
+			<field name="model">new.component</field>
+			<field name="arch" type="xml">
+				<form string="Komponen">
+					<sheet>
+						<group>
+							<field name="name"/>
+							<label for="waktu"/>
+							<div>
+								<field name="waktu" class="oe_inline"/> Hari
+							</div>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		 <record id="komponen_tree" model="ir.ui.view">
+			<field name="name">List Komponen</field>
+			<field name="model">new.component</field>
+			<field name="arch" type="xml">
+				<tree string="Komponen">
+					<field name="name"/>
+					<field name="waktu" string="Waktu Pengerjaan (Hari)"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="item_form" model="ir.ui.view">
+			<field name="name">Form Item</field>
+			<field name="model">new.item</field>
+			<field name="arch" type="xml">
+				<form string="Item">
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="tanggal_pengerjaan"/>
+							</group>
+							<group>
+								<field name="create_date" invisible="1"/>
+								<field name="expectation_date"/>
+								<field name="real_date" attrs="{'invisible': [('create_date','=',False)]}"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Komponen">
+								<field name="component_ids">
+								<tree string="Komponen" editable="bottom">
+									<field name="component_id"/>
+									<field name="percentage"/>
+								</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		 <record id="item_tree" model="ir.ui.view">
+			<field name="name">List Item</field>
+			<field name="model">new.item</field>
+			<field name="arch" type="xml">
+				<tree string="Komponen">
+					<field name="name"/>
+					<field name="tanggal_pengerjaan"/>
+					<field name="expectation_date"/>
+					<field name="real_date"/>
+				</tree>
+			</field>
+		</record>
+		
+        <record id="komponen_action" model="ir.actions.act_window">
+            <field name="name">Komponen</field>
+            <field name="res_model">new.component</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record id="item_action" model="ir.actions.act_window">
+            <field name="name">Item</field>
+            <field name="res_model">new.item</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem id="stock_item" name="Stock Item" sequence="10"/>
+        <menuitem id="item_menu" name="Item" parent="stock_item" action="item_action" sequence="1"/>
+        <menuitem id="komponen_menu" name="Komponen" parent="stock_item" action="komponen_action" sequence="2"/>
+    </data>
+</odoo>
